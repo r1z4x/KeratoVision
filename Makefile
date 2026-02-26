@@ -41,7 +41,8 @@ BOLD   := \033[1m
 # ============================================
 
 .PHONY: all chrome firefox vscode clean validate version help \
-        bump-patch bump-minor bump-major release-patch release-minor release-major
+        bump-patch bump-minor bump-major release-patch release-minor release-major \
+        github-release publish-patch publish-minor publish-major
 
 all: clean validate chrome firefox vscode
 	@echo ""
@@ -204,6 +205,34 @@ release-minor: bump-minor all
 release-major: bump-major all
 
 # ============================================
+#  GITHUB RELEASE
+# ============================================
+
+github-release: all
+	@echo "$(CYAN)🚀 Creating GitHub Release v$(VERSION)...$(NC)"
+	@git add -A
+	@git commit -m "release: v$(VERSION)" || true
+	@git tag -a "v$(VERSION)" -m "KeratoVision v$(VERSION)" 2>/dev/null || \
+		(echo "$(YELLOW)  ⚠ Tag v$(VERSION) already exists, deleting and recreating...$(NC)" && \
+		 git tag -d "v$(VERSION)" && git tag -a "v$(VERSION)" -m "KeratoVision v$(VERSION)")
+	@git push origin main --tags
+	@echo "$(CYAN)  📦 Uploading release artifacts...$(NC)"
+	@gh release create "v$(VERSION)" \
+		$(CHROME_ZIP) \
+		$(FIREFOX_ZIP) \
+		$(VSCODE_VSIX) \
+		--title "KeratoVision v$(VERSION)" \
+		--notes "## 📦 Downloads\n\n| Package | File |\n|---------|------|\n| Chrome Extension | \`keratovision-chrome-v$(VERSION).zip\` |\n| Firefox Add-on | \`keratovision-firefox-v$(VERSION).zip\` |\n| VS Code Theme | \`keratovision-theme-$(VERSION).vsix\` |\n\n### Install\n\n**Chrome:** Settings → Extensions → Load unpacked → select extracted zip\n\n**Firefox:** \`about:debugging\` → Load Temporary Add-on → select extracted zip\n\n**VS Code:** \`code --install-extension keratovision-theme-$(VERSION).vsix\`"
+	@echo ""
+	@echo "$(GREEN)$(BOLD)✅ Released v$(VERSION) on GitHub!$(NC)"
+	@echo "$(CYAN)  🔗 https://github.com/r1z4x/KeratoVision/releases/tag/v$(VERSION)$(NC)"
+
+# One-step: bump + build + GitHub release
+publish-patch: bump-patch github-release
+publish-minor: bump-minor github-release
+publish-major: bump-major github-release
+
+# ============================================
 #  HELP
 # ============================================
 
@@ -225,9 +254,14 @@ help:
 	@echo "  $(CYAN)make release-patch$(NC)  Bump patch + build all"
 	@echo "  $(CYAN)make release-minor$(NC)  Bump minor + build all"
 	@echo "  $(CYAN)make release-major$(NC)  Bump major + build all"
-	@echo "  $(CYAN)make version$(NC)        Show current version"
+	@echo "  $(BOLD)Publish (bump + build + GitHub release):$(NC)"
+	@echo "  $(CYAN)make publish-patch$(NC)   1.0.0 → 1.0.1 + release"
+	@echo "  $(CYAN)make publish-minor$(NC)   1.0.0 → 1.1.0 + release"
+	@echo "  $(CYAN)make publish-major$(NC)   1.0.0 → 2.0.0 + release"
+	@echo "  $(CYAN)make github-release$(NC)  Build + create GitHub release"
+	@echo "  $(CYAN)make version$(NC)         Show current version"
 	@echo ""
 	@echo "  $(BOLD)Utils:$(NC)"
-	@echo "  $(CYAN)make validate$(NC)       Validate all manifest files"
-	@echo "  $(CYAN)make clean$(NC)          Remove build artifacts"
+	@echo "  $(CYAN)make validate$(NC)        Validate all manifest files"
+	@echo "  $(CYAN)make clean$(NC)           Remove build artifacts"
 	@echo ""
