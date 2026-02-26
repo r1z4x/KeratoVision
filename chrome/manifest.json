@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "KeratoVision",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Adaptive rendering engine for improved screen readability — designed for Keratoconus and Astigmatism.",
   "permissions": [
     "storage",

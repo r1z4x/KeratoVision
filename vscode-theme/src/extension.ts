@@ -118,7 +118,14 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(watcher, switchCmd, resetCmd);
 }
 
-export function deactivate() {
-    // Optionally clear customizations on deactivate
-    console.log('[KeratoVision] Extension deactivated');
+export async function deactivate() {
+    console.log('[KeratoVision] Extension deactivating — clearing color customizations');
+    try {
+        const wcfg = vscode.workspace.getConfiguration('workbench');
+        const ecfg = vscode.workspace.getConfiguration('editor');
+        await wcfg.update('colorCustomizations', undefined, vscode.ConfigurationTarget.Global);
+        await ecfg.update('tokenColorCustomizations', undefined, vscode.ConfigurationTarget.Global);
+    } catch (err) {
+        console.error('[KeratoVision] Failed to clear customizations:', err);
+    }
 }

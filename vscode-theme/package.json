@@ -2,7 +2,7 @@
     "name": "keratovision-theme",
     "displayName": "KeratoVision — Eye Comfort Theme",
     "description": "Dynamic, reduced-contrast color theme with live settings for keratoconus and astigmatism. Adjust contrast, brightness, saturation in real-time.",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "publisher": "keratovision",
     "license": "MIT",
     "engines": {

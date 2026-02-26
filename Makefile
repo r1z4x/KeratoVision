@@ -40,6 +40,8 @@ BOLD   := \033[1m
 #  TARGETS
 # ============================================
 
+.DEFAULT_GOAL := help
+
 .PHONY: all chrome firefox vscode clean validate version help \
         bump-patch bump-minor bump-major release-patch release-minor release-major \
         github-release publish-patch publish-minor publish-major
@@ -196,9 +198,14 @@ bump-major:
 #  RELEASE SHORTCUTS (bump + build)
 # ============================================
 
-release-patch: bump-patch all
-release-minor: bump-minor all
-release-major: bump-major all
+release-patch: bump-patch
+	@$(MAKE) all
+
+release-minor: bump-minor
+	@$(MAKE) all
+
+release-major: bump-major
+	@$(MAKE) all
 
 # ============================================
 #  GITHUB RELEASE
@@ -240,9 +247,14 @@ github-release: all
 	@echo "$(CYAN)  🔗 https://github.com/r1z4x/KeratoVision/releases/tag/v$(VERSION)$(NC)"
 
 # One-step: bump + build + GitHub release
-publish-patch: bump-patch github-release
-publish-minor: bump-minor github-release
-publish-major: bump-major github-release
+publish-patch: bump-patch
+	@$(MAKE) github-release
+
+publish-minor: bump-minor
+	@$(MAKE) github-release
+
+publish-major: bump-major
+	@$(MAKE) github-release
 
 # ============================================
 #  HELP
