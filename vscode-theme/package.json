@@ -1,0 +1,126 @@
+{
+    "name": "keratovision-theme",
+    "displayName": "KeratoVision — Eye Comfort Theme",
+    "description": "Dynamic, reduced-contrast color theme with live settings for keratoconus and astigmatism. Adjust contrast, brightness, saturation in real-time.",
+    "version": "1.0.0",
+    "publisher": "keratovision",
+    "license": "MIT",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "keywords": [
+        "theme",
+        "dark",
+        "light",
+        "eye-comfort",
+        "keratoconus",
+        "astigmatism",
+        "accessibility"
+    ],
+    "icon": "icon.png",
+    "main": "./out/extension.js",
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "KeratoVision Dark",
+                "uiTheme": "vs-dark",
+                "path": "./themes/keratovision-dark.json"
+            },
+            {
+                "label": "KeratoVision Soft",
+                "uiTheme": "vs-dark",
+                "path": "./themes/keratovision-soft.json"
+            },
+            {
+                "label": "KeratoVision Light",
+                "uiTheme": "vs",
+                "path": "./themes/keratovision-light.json"
+            }
+        ],
+        "configuration": {
+            "title": "KeratoVision",
+            "properties": {
+                "keratovision.preset": {
+                    "type": "string",
+                    "default": "dark",
+                    "enum": [
+                        "dark",
+                        "soft",
+                        "light"
+                    ],
+                    "enumDescriptions": [
+                        "Default dark — reduced contrast, muted palette",
+                        "Maximum comfort — warmer, lower saturation",
+                        "Warm cream background, earthy tones"
+                    ],
+                    "description": "Base theme preset"
+                },
+                "keratovision.contrast": {
+                    "type": "number",
+                    "default": 85,
+                    "minimum": 50,
+                    "maximum": 100,
+                    "description": "Contrast level (%). Lower values = softer contrast"
+                },
+                "keratovision.brightness": {
+                    "type": "number",
+                    "default": 95,
+                    "minimum": 60,
+                    "maximum": 100,
+                    "description": "Maximum brightness (%). Reduces white glare"
+                },
+                "keratovision.saturation": {
+                    "type": "number",
+                    "default": 80,
+                    "minimum": 30,
+                    "maximum": 100,
+                    "description": "Color saturation (%). Lower = more muted colors"
+                },
+                "keratovision.warmth": {
+                    "type": "number",
+                    "default": 50,
+                    "minimum": 0,
+                    "maximum": 100,
+                    "description": "Color temperature (0 = cool blue, 100 = warm amber)"
+                },
+                "keratovision.severity": {
+                    "type": "number",
+                    "default": 2,
+                    "minimum": 0,
+                    "maximum": 5,
+                    "description": "Keratoconus severity (0 = none, 5 = severe). Auto-adjusts contrast and saturation"
+                },
+                "keratovision.enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable dynamic color customizations"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "keratovision.switchPreset",
+                "title": "KeratoVision: Switch Preset"
+            },
+            {
+                "command": "keratovision.reset",
+                "title": "KeratoVision: Reset to Defaults"
+            }
+        ]
+    },
+    "scripts": {
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "package": "npm run compile && npx @vscode/vsce package --no-dependencies"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.80.0",
+        "typescript": "^5.3.0"
+    }
+}

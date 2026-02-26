@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeratoVision Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="popup-container">
+
+    <!-- ============================================ -->
+    <!--  VIEW 1: SETTINGS                            -->
+    <!-- ============================================ -->
+    <div id="viewSettings">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="12" stroke="url(#grad)" stroke-width="2" fill="none" />
+              <circle cx="14" cy="14" r="6" fill="url(#grad)" />
+              <circle cx="14" cy="14" r="3" fill="#1a1a2e" />
+              <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="28" y2="28">
+                  <stop offset="0%" stop-color="#6C63FF" />
+                  <stop offset="100%" stop-color="#48CFCB" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="header-text">
+            <h1 class="title" data-i18n="appTitle">KeratoVision</h1>
+            <span class="subtitle" data-i18n="appSubtitle">Adaptive Rendering Engine</span>
+          </div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="enabledToggle" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </header>
+
+      <!-- Status + Language -->
+      <div class="status-bar">
+        <div class="status-left">
+          <span class="status-dot active" id="statusDot"></span>
+          <span class="status-text" id="statusText" data-i18n="active">Active</span>
+        </div>
+        <select class="lang-select" id="langSelect">
+          <option value="en">🇬🇧 EN</option>
+          <option value="tr">🇹🇷 TR</option>
+          <option value="ru">🇷🇺 RU</option>
+          <option value="es">🇪🇸 ES</option>
+        </select>
+      </div>
+
+      <!-- Settings -->
+      <div class="settings-body">
+        <!-- Astigmatism -->
+        <section class="settings-section">
+          <h2 class="section-title">
+            <span class="section-icon">◎</span>
+            <span data-i18n="astigmatism">Astigmatism</span>
+          </h2>
+          <div class="slider-group">
+            <div class="slider-header">
+              <label data-i18n="axis">Axis</label>
+              <span class="slider-value" id="axisValue">90°</span>
+            </div>
+            <input type="range" id="astigmatAxis" min="0" max="180" step="1" value="90" class="slider">
+            <div class="slider-range"><span>0°</span><span>180°</span></div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-header">
+              <label data-i18n="power">Power</label>
+              <span class="slider-value" id="powerValue">1.5 D</span>
+            </div>
+            <input type="range" id="astigmatPower" min="0" max="6" step="0.25" value="1.5" class="slider">
+            <div class="slider-range"><span>0</span><span>6 D</span></div>
+          </div>
+        </section>
+
+        <!-- Keratoconus -->
+        <section class="settings-section">
+          <h2 class="section-title">
+            <span class="section-icon">◉</span>
+            <span data-i18n="keratoconus">Keratoconus</span>
+          </h2>
+          <div class="slider-group">
+            <div class="slider-header">
+              <label data-i18n="severity">Severity</label>
+              <span class="slider-value" id="severityValue">2</span>
+            </div>
+            <input type="range" id="keratoSeverity" min="0" max="5" step="0.5" value="2" class="slider">
+            <div class="slider-range">
+              <span data-i18n="mild">Mild</span>
+              <span data-i18n="severe">Severe</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Coma -->
+        <section class="settings-section">
+          <h2 class="section-title">
+            <span class="section-icon">☄</span>
+            <span data-i18n="comaAberration">Coma Aberration</span>
+            <span class="badge-new">ARVO</span>
+          </h2>
+          <div class="slider-group">
+            <div class="slider-header">
+              <label data-i18n="direction">Direction</label>
+              <span class="slider-value" id="comaAngleValue">0°</span>
+            </div>
+            <input type="range" id="comaAngle" min="0" max="360" step="5" value="0" class="slider">
+            <div class="slider-range"><span>0°</span><span>360°</span></div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-header">
+              <label data-i18n="intensity">Intensity</label>
+              <span class="slider-value" id="comaIntensityValue">0</span>
+            </div>
+            <input type="range" id="comaIntensity" min="0" max="5" step="0.5" value="0" class="slider">
+            <div class="slider-range">
+              <span data-i18n="auto">Auto</span>
+              <span data-i18n="max">Max</span>
+            </div>
+          </div>
+          <p class="hint" data-i18n="comaHint">0 = auto (kerato severity × 0.6)</p>
+        </section>
+
+        <!-- Display -->
+        <section class="settings-section">
+          <h2 class="section-title">
+            <span class="section-icon">◈</span>
+            <span data-i18n="display">Display</span>
+          </h2>
+          <div class="slider-group">
+            <div class="slider-header">
+              <label data-i18n="fontSize">Font Size</label>
+              <span class="slider-value" id="fontSizeValue">18px</span>
+            </div>
+            <input type="range" id="fontSize" min="16" max="30" step="1" value="18" class="slider">
+            <div class="slider-range"><span>16px</span><span>30px</span></div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-header">
+              <label data-i18n="luminance">Luminance</label>
+              <span class="slider-value" id="luminanceValue">0.95</span>
+            </div>
+            <input type="range" id="luminanceClamp" min="0.65" max="1.0" step="0.01" value="0.95" class="slider">
+            <div class="slider-range">
+              <span data-i18n="dim">Dim</span>
+              <span data-i18n="full">Full</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Advanced -->
+        <section class="settings-section">
+          <h2 class="section-title">
+            <span class="section-icon">⚙</span>
+            <span data-i18n="advanced">Advanced</span>
+            <span class="badge-new">Research</span>
+          </h2>
+          <div class="toggle-group">
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <span class="toggle-label" data-i18n="reverseContrast">Reverse Contrast</span>
+                <span class="toggle-desc" data-i18n="reverseContrastDesc">Dark mode for glare sensitivity</span>
+              </div>
+              <label class="toggle-switch small">
+                <input type="checkbox" id="polarityReversed">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <span class="toggle-label" data-i18n="edgeEnhancement">Edge Enhancement</span>
+                <span class="toggle-desc" data-i18n="edgeEnhancementDesc">Gabor-inspired text-stroke</span>
+              </div>
+              <label class="toggle-switch small">
+                <input type="checkbox" id="edgeEnhancement" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <span class="toggle-label" data-i18n="chromaticCorrection">Chromatic Correction</span>
+                <span class="toggle-desc" data-i18n="chromaticCorrectionDesc">Color fringing reduction</span>
+              </div>
+              <label class="toggle-switch small">
+                <input type="checkbox" id="chromaticCorrection" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <span class="toggle-label" data-i18n="readingGuide">Reading Guide</span>
+                <span class="toggle-desc" data-i18n="readingGuideDesc">Line-tracking overlay</span>
+              </div>
+              <label class="toggle-switch small">
+                <input type="checkbox" id="readingGuide">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <button class="btn-reset" id="resetBtn" data-i18n="resetDefaults">Reset Defaults</button>
+        <button class="btn-calibrate" id="calibrateBtn" data-i18n="calibration">🎯 Calibration</button>
+        <span class="version">v2.2</span>
+      </footer>
+    </div>
+
+    <!-- ============================================ -->
+    <!--  VIEW 2: CALIBRATION WIZARD                  -->
+    <!-- ============================================ -->
+    <div id="viewCalibration" class="hidden">
+      <!-- Cal Header -->
+      <header class="header cal-header">
+        <div class="header-left">
+          <button class="btn-cal-back" id="calBackToSettings">←</button>
+          <span class="cal-title" data-i18n="calTitle">KeratoVision Calibration</span>
+        </div>
+        <span class="step-indicator" id="calStepIndicator">1 / 7</span>
+      </header>
+
+      <!-- Progress -->
+      <div class="cal-progress">
+        <div class="cal-progress-fill" id="calProgressFill"></div>
+      </div>
+
+      <!-- Steps -->
+      <div class="cal-steps-container">
+
+        <!-- Step 1: Prescription -->
+        <div class="cal-step active" data-step="0">
+          <h3 class="cal-step-title" data-i18n="calStep1Title">📋 Your Prescription</h3>
+          <p class="cal-step-desc" data-i18n-html="calStep1Desc">Enter your details.</p>
+          <div class="cal-input-grid">
+            <div class="cal-input-group">
+              <label data-i18n="cylPower">Cylinder Power</label>
+              <div class="cal-input-row">
+                <input type="number" id="rxPower" step="0.25" min="0" max="6" value="1.75" class="cal-num-input">
+                <span class="cal-unit" data-i18n="diopter">D</span>
+              </div>
+            </div>
+            <div class="cal-input-group">
+              <label data-i18n="cylAxis">Cylinder Axis</label>
+              <div class="cal-input-row">
+                <input type="number" id="rxAxis" step="1" min="0" max="180" value="90" class="cal-num-input">
+                <span class="cal-unit" data-i18n="degree">°</span>
+              </div>
+            </div>
+            <div class="cal-input-group">
+              <label data-i18n="keratoDiagnosis">Diagnosis</label>
+              <div class="cal-radio-group">
+                <label class="cal-radio"><input type="radio" name="kerato" value="0"><span
+                    data-i18n="keratoNone">None</span></label>
+                <label class="cal-radio"><input type="radio" name="kerato" value="1"><span
+                    data-i18n="keratoMild">Mild</span></label>
+                <label class="cal-radio"><input type="radio" name="kerato" value="2" checked><span
+                    data-i18n="keratoModerate">Moderate</span></label>
+                <label class="cal-radio"><input type="radio" name="kerato" value="3"><span
+                    data-i18n="keratoAdvanced">Advanced</span></label>
+                <label class="cal-radio"><input type="radio" name="kerato" value="4"><span
+                    data-i18n="keratoSevere">Severe</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Contrast -->
+        <div class="cal-step" data-step="1">
+          <h3 class="cal-step-title" data-i18n="calStep2Title">🔲 Contrast</h3>
+          <p class="cal-step-desc" data-i18n-html="calStep2Desc">Select most comfortable.</p>
+          <div class="cal-card-grid" id="calContrastCards">
+            <div class="cal-card" data-value="0" style="background:#fff;color:#000;"><span class="cal-card-text"
+                data-i18n="sampleText">Sample</span><small data-i18n="contrastMax">Max</small></div>
+            <div class="cal-card" data-value="1" style="background:#f5f5f0;color:#1a1a1e;"><span class="cal-card-text"
+                data-i18n="sampleText">Sample</span><small data-i18n="contrastSoft">Soft</small></div>
+            <div class="cal-card" data-value="2" style="background:#ebebdf;color:#2a2a30;"><span class="cal-card-text"
+                data-i18n="sampleText">Sample</span><small data-i18n="contrastMedium">Medium</small></div>
+            <div class="cal-card selected" data-value="3" style="background:#e0e0d5;color:#38384a;"><span
+                class="cal-card-text" data-i18n="sampleText">Sample</span><small data-i18n="contrastLow">Low</small>
+            </div>
+            <div class="cal-card" data-value="4" style="background:#1a1a2e;color:#d8d8e8;"><span class="cal-card-text"
+                data-i18n="sampleText">Sample</span><small data-i18n="contrastReverse">Reverse</small></div>
+          </div>
+        </div>
+
+        <!-- Step 3: Axis -->
+        <div class="cal-step" data-step="2">
+          <h3 class="cal-step-title" data-i18n="calStep3Title">🎯 Ghosting</h3>
+          <p class="cal-step-desc" data-i18n="calStep3Desc">Find best angle.</p>
+          <div class="cal-axis-preview" id="calAxisPreview">
+            <span class="cal-axis-text">ABCDEFG 1234567</span>
+          </div>
+          <input type="range" id="calAxisSlider" min="0" max="180" step="1" value="90" class="slider">
+          <div class="cal-axis-value" id="calAxisValue">90°</div>
+          <div class="slider-range"><span>0°</span><span>180°</span></div>
+        </div>
+
+        <!-- Step 4: Font -->
+        <div class="cal-step" data-step="3">
+          <h3 class="cal-step-title" data-i18n="calStep4Title">🔤 Font Size</h3>
+          <p class="cal-step-desc" data-i18n-html="calStep4Desc">Smallest comfortable.</p>
+          <div class="cal-font-grid" id="calFontGrid">
+            <div class="cal-font-card" data-size="16"><b>16px</b> <span data-i18n-param="fontSample"
+                data-param="16">Test</span></div>
+            <div class="cal-font-card" data-size="18"><b>18px</b> <span data-i18n-param="fontSample"
+                data-param="18">Test</span></div>
+            <div class="cal-font-card selected" data-size="20"><b>20px</b> <span data-i18n-param="fontSample"
+                data-param="20">Test</span></div>
+            <div class="cal-font-card" data-size="22"><b>22px</b> <span data-i18n-param="fontSample"
+                data-param="22">Test</span></div>
+            <div class="cal-font-card" data-size="24"><b>24px</b> <span data-i18n-param="fontSample"
+                data-param="24">Test</span></div>
+            <div class="cal-font-card" data-size="28"><b>28px</b> <span data-i18n-param="fontSample"
+                data-param="28">Test</span></div>
+          </div>
+        </div>
+
+        <!-- Step 5: Brightness -->
+        <div class="cal-step" data-step="4">
+          <h3 class="cal-step-title" data-i18n="calStep5Title">💡 Brightness</h3>
+          <p class="cal-step-desc" data-i18n="calStep5Desc">Find comfortable level.</p>
+          <div class="cal-bright-preview" id="calBrightPreview">
+            <p data-i18n="brightPreview1">Simulates brightness.</p>
+            <p data-i18n="brightPreview2">Reduce if white bothers you.</p>
+          </div>
+          <input type="range" id="calBrightSlider" min="65" max="100" step="1" value="95" class="slider">
+          <div class="cal-axis-value" id="calBrightValue">95%</div>
+          <div class="slider-range">
+            <span data-i18n="darkLabel">Dark</span>
+            <span data-i18n="fullBright">Full</span>
+          </div>
+        </div>
+
+        <!-- Step 6: Features -->
+        <div class="cal-step" data-step="5">
+          <h3 class="cal-step-title" data-i18n="calStep6Title">⚡ Features</h3>
+          <p class="cal-step-desc" data-i18n="calStep6Desc">Pick best option.</p>
+          <div class="cal-compare-list">
+            <div class="cal-compare-block">
+              <span class="cal-compare-label" data-i18n="edgeTitle">Edge</span>
+              <div class="cal-compare-pair">
+                <div class="cal-compare-card" data-feature="edgeEnhancement" data-val="false"><span
+                    data-i18n="off">Off</span></div>
+                <div class="cal-compare-card selected" data-feature="edgeEnhancement" data-val="true"><span
+                    data-i18n="on">On</span> ✓</div>
+              </div>
+            </div>
+            <div class="cal-compare-block">
+              <span class="cal-compare-label" data-i18n="guideTitle">Guide</span>
+              <div class="cal-compare-pair">
+                <div class="cal-compare-card selected" data-feature="readingGuide" data-val="false"><span
+                    data-i18n="off">Off</span> ✓</div>
+                <div class="cal-compare-card" data-feature="readingGuide" data-val="true"><span data-i18n="on">On</span>
+                </div>
+              </div>
+            </div>
+            <div class="cal-compare-block">
+              <span class="cal-compare-label" data-i18n="chromTitle">Chromatic</span>
+              <div class="cal-compare-pair">
+                <div class="cal-compare-card" data-feature="chromaticCorrection" data-val="false"><span
+                    data-i18n="off">Off</span></div>
+                <div class="cal-compare-card selected" data-feature="chromaticCorrection" data-val="true"><span
+                    data-i18n="on">On</span> ✓</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 7: Results -->
+        <div class="cal-step" data-step="6">
+          <h3 class="cal-step-title" data-i18n="calStep7Title">✅ Results</h3>
+          <p class="cal-step-desc" data-i18n="calStep7Desc">Your optimal settings.</p>
+          <div class="cal-results" id="calResults"></div>
+          <button class="btn-cal-apply" id="calApplyBtn" data-i18n="applySettings">🚀 Apply</button>
+        </div>
+      </div>
+
+      <!-- Cal Nav -->
+      <div class="cal-nav">
+        <button class="btn-cal-prev" id="calPrevBtn" disabled data-i18n="back">← Back</button>
+        <button class="btn-cal-next" id="calNextBtn" data-i18n="next">Next →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../src/i18n.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>

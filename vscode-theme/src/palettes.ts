@@ -1,0 +1,186 @@
+/**
+ * KeratoVision — Base Palettes
+ *
+ * Three preset palettes (dark, soft, light) extracted from the static theme JSONs.
+ * Each palette defines HSL-based base colors that the theme engine can manipulate.
+ */
+
+export interface Palette {
+    name: string;
+    type: 'dark' | 'light';
+
+    // Core backgrounds (darkest → lightest for dark themes, reverse for light)
+    bg0: string;  // deepest (activity bar, panels)
+    bg1: string;  // primary editor
+    bg2: string;  // secondary (sidebar, tabs)
+    bg3: string;  // elevated (hover, highlights)
+    border: string;
+
+    // Text
+    fg: string;       // primary
+    fgMuted: string;  // secondary
+    fgDim: string;    // comments, inactive
+
+    // Accents
+    accent1: string;  // primary accent (purple)
+    accent2: string;  // secondary accent (teal)
+
+    // Syntax
+    keyword: string;
+    function_: string;
+    string_: string;
+    number: string;
+    typeColor: string;
+    constant: string;
+    tag: string;
+    attribute: string;
+    property: string;
+    operator: string;
+    comment: string;
+    regex: string;
+
+    // Semantic
+    error: string;
+    warning: string;
+    info: string;
+    success: string;
+
+    // Terminal
+    ansiRed: string;
+    ansiGreen: string;
+    ansiYellow: string;
+    ansiBlue: string;
+    ansiMagenta: string;
+    ansiCyan: string;
+}
+
+export const palettes: Record<string, Palette> = {
+    dark: {
+        name: 'KeratoVision Dark',
+        type: 'dark',
+
+        bg0: '#0e0e16',
+        bg1: '#12121a',
+        bg2: '#1a1a2e',
+        bg3: '#1e1e32',
+        border: '#25253d',
+
+        fg: '#d8d8e8',
+        fgMuted: '#9898b0',
+        fgDim: '#4a4a68',
+
+        accent1: '#6C63FF',
+        accent2: '#48CFCB',
+
+        keyword: '#b39ddb',
+        function_: '#82b1ff',
+        string_: '#69f0ae',
+        number: '#ffd580',
+        typeColor: '#48CFCB',
+        constant: '#ff8a80',
+        tag: '#ff8a80',
+        attribute: '#ffcc80',
+        property: '#b0bec5',
+        operator: '#48CFCB',
+        comment: '#4a4a68',
+        regex: '#ff8a80',
+
+        error: '#ff8a80',
+        warning: '#ffd580',
+        info: '#82b1ff',
+        success: '#69f0ae',
+
+        ansiRed: '#ff8a80',
+        ansiGreen: '#69f0ae',
+        ansiYellow: '#ffd580',
+        ansiBlue: '#82b1ff',
+        ansiMagenta: '#b39ddb',
+        ansiCyan: '#48CFCB',
+    },
+
+    soft: {
+        name: 'KeratoVision Soft',
+        type: 'dark',
+
+        bg0: '#14141e',
+        bg1: '#181825',
+        bg2: '#1e1e32',
+        bg3: '#222236',
+        border: '#2a2a44',
+
+        fg: '#cdd6f4',
+        fgMuted: '#a0a0b8',
+        fgDim: '#505068',
+
+        accent1: '#7c74e8',
+        accent2: '#70d8d4',
+
+        keyword: '#c8b8e8',
+        function_: '#a0c4ff',
+        string_: '#8adbb4',
+        number: '#ffe0a0',
+        typeColor: '#70d8d4',
+        constant: '#f5a0a0',
+        tag: '#f5a0a0',
+        attribute: '#ffd8a0',
+        property: '#bbc8d8',
+        operator: '#70d8d4',
+        comment: '#505068',
+        regex: '#f5a0a0',
+
+        error: '#f5a0a0',
+        warning: '#ffe0a0',
+        info: '#a0c4ff',
+        success: '#8adbb4',
+
+        ansiRed: '#f5a0a0',
+        ansiGreen: '#8adbb4',
+        ansiYellow: '#ffe0a0',
+        ansiBlue: '#a0c4ff',
+        ansiMagenta: '#c8b8e8',
+        ansiCyan: '#70d8d4',
+    },
+
+    light: {
+        name: 'KeratoVision Light',
+        type: 'light',
+
+        bg0: '#edeae4',
+        bg1: '#f5f3ee',
+        bg2: '#f0ede7',
+        bg3: '#ebe8e0',
+        border: '#dfdcd4',
+
+        fg: '#2a2a3c',
+        fgMuted: '#5a5868',
+        fgDim: '#a0a098',
+
+        accent1: '#6C63FF',
+        accent2: '#2e8b8b',
+
+        keyword: '#7b5ba0',
+        function_: '#406ec9',
+        string_: '#2e8b57',
+        number: '#b88a00',
+        typeColor: '#2e8b8b',
+        constant: '#c94040',
+        tag: '#c94040',
+        attribute: '#98681a',
+        property: '#4a4858',
+        operator: '#2e8b8b',
+        comment: '#a0a098',
+        regex: '#c94040',
+
+        error: '#c94040',
+        warning: '#b88a00',
+        info: '#406ec9',
+        success: '#2e8b57',
+
+        ansiRed: '#c94040',
+        ansiGreen: '#2e8b57',
+        ansiYellow: '#b88a00',
+        ansiBlue: '#406ec9',
+        ansiMagenta: '#7b5ba0',
+        ansiCyan: '#2e8b8b',
+    },
+};

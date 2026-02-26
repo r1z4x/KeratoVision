@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "KeratoVision",
+  "version": "1.0.0",
+  "description": "Adaptive rendering engine for improved screen readability — designed for Keratoconus and Astigmatism.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/engines/config-manager.js",
+        "src/engines/performance-guard.js",
+        "src/engines/contrast-engine.js",
+        "src/engines/shadow-vector-calculator.js",
+        "src/engines/font-engine.js",
+        "src/engines/luminance-controller.js",
+        "src/engines/coma-compensator.js",
+        "src/engines/polarity-engine.js",
+        "src/engines/edge-enhancer.js",
+        "src/engines/reading-guide.js",
+        "src/engines/adaptive-renderer.js",
+        "src/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

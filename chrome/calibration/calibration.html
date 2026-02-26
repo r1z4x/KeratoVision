@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeratoVision — Calibration</title>
+    <link rel="stylesheet" href="calibration.css">
+</head>
+
+<body>
+    <div class="wizard-container">
+        <!-- Progress -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- Header -->
+        <header class="wizard-header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="12" stroke="url(#g)" stroke-width="2" fill="none" />
+                    <circle cx="14" cy="14" r="6" fill="url(#g)" />
+                    <circle cx="14" cy="14" r="3" fill="#12121a" />
+                    <defs>
+                        <linearGradient id="g" x1="0" y1="0" x2="28" y2="28">
+                            <stop offset="0%" stop-color="#6C63FF" />
+                            <stop offset="100%" stop-color="#48CFCB" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text" data-i18n="calTitle">KeratoVision Calibration</span>
+            </div>
+            <span class="step-indicator" id="stepIndicator">Step 1 / 7</span>
+        </header>
+
+        <!-- Steps -->
+        <main class="step-container" id="stepContainer">
+
+            <!-- STEP 1: Prescription -->
+            <section class="step active" data-step="0">
+                <h2 class="step-title" data-i18n="calStep1Title">📋 Your Prescription</h2>
+                <p class="step-desc" data-i18n-html="calStep1Desc">Enter your astigmatism and keratoconus details.</p>
+
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label data-i18n="cylPower">Cylinder Power</label>
+                        <div class="input-row">
+                            <input type="number" id="rxPower" step="0.25" min="0" max="6" value="1.75"
+                                class="num-input">
+                            <span class="unit" data-i18n="diopter">D (Diopter)</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="cylAxis">Cylinder Axis</label>
+                        <div class="input-row">
+                            <input type="number" id="rxAxis" step="1" min="0" max="180" value="90" class="num-input">
+                            <span class="unit" data-i18n="degree">° (Degrees)</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="keratoDiagnosis">Keratoconus Diagnosis</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="kerato" value="0" class="radio-input">
+                                <span class="radio-label" data-i18n="keratoNone">None</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="kerato" value="1" class="radio-input">
+                                <span class="radio-label" data-i18n="keratoMild">Mild</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="kerato" value="2" class="radio-input" checked>
+                                <span class="radio-label" data-i18n="keratoModerate">Moderate</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="kerato" value="3" class="radio-input">
+                                <span class="radio-label" data-i18n="keratoAdvanced">Advanced</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="kerato" value="4" class="radio-input">
+                                <span class="radio-label" data-i18n="keratoSevere">Severe</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 2: Contrast -->
+            <section class="step" data-step="1">
+                <h2 class="step-title" data-i18n="calStep2Title">🔲 Contrast Comfort</h2>
+                <p class="step-desc" data-i18n-html="calStep2Desc">Select the most comfortable card.</p>
+
+                <div class="card-grid" id="contrastCards">
+                    <div class="test-card" data-value="0" style="background:#ffffff; color:#000000;">
+                        <p class="test-text" data-i18n="sampleText">The quick brown fox jumps over the lazy dog.</p>
+                        <span class="card-label" data-i18n="contrastMax">Maximum Contrast</span>
+                    </div>
+                    <div class="test-card" data-value="1" style="background:#f5f5f0; color:#1a1a1e;">
+                        <p class="test-text" data-i18n="sampleText">The quick brown fox jumps over the lazy dog.</p>
+                        <span class="card-label" data-i18n="contrastSoft">Slightly Soft</span>
+                    </div>
+                    <div class="test-card" data-value="2" style="background:#ebebdf; color:#2a2a30;">
+                        <p class="test-text" data-i18n="sampleText">The quick brown fox jumps over the lazy dog.</p>
+                        <span class="card-label" data-i18n="contrastMedium">Medium Soft</span>
+                    </div>
+                    <div class="test-card selected" data-value="3" style="background:#e0e0d5; color:#38384a;">
+                        <p class="test-text" data-i18n="sampleText">The quick brown fox jumps over the lazy dog.</p>
+                        <span class="card-label" data-i18n="contrastLow">Low Contrast</span>
+                    </div>
+                    <div class="test-card" data-value="4" style="background:#1a1a2e; color:#d8d8e8;">
+                        <p class="test-text" data-i18n="sampleText">The quick brown fox jumps over the lazy dog.</p>
+                        <span class="card-label" data-i18n="contrastReverse">Reverse Contrast (Dark)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 3: Axis -->
+            <section class="step" data-step="2">
+                <h2 class="step-title" data-i18n="calStep3Title">🎯 Ghosting Alignment</h2>
+                <p class="step-desc" data-i18n="calStep3Desc">Rotate to find the minimum ghosting angle.</p>
+
+                <div class="axis-test-area">
+                    <div class="axis-preview" id="axisPreview">
+                        <span class="axis-sample-text">ABCDEFG 1234567</span>
+                    </div>
+                    <div class="axis-control">
+                        <input type="range" id="axisSlider" min="0" max="180" step="1" value="90" class="slider large">
+                        <div class="axis-value-display"><span id="axisLiveValue">90°</span></div>
+                        <div class="slider-range"><span>0°</span><span>180°</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 4: Font -->
+            <section class="step" data-step="3">
+                <h2 class="step-title" data-i18n="calStep4Title">🔤 Font Readability</h2>
+                <p class="step-desc" data-i18n-html="calStep4Desc">Select smallest comfortable size.</p>
+
+                <div class="font-test-area" id="fontTestArea">
+                    <div class="font-sample" data-size="16" style="font-size:16px;">
+                        <span class="size-label">16px</span>
+                        <span data-i18n-param="fontSample" data-param="16">Can you read at 16px?</span>
+                    </div>
+                    <div class="font-sample" data-size="18" style="font-size:18px;">
+                        <span class="size-label">18px</span>
+                        <span data-i18n-param="fontSample" data-param="18">Can you read at 18px?</span>
+                    </div>
+                    <div class="font-sample selected" data-size="20" style="font-size:20px;">
+                        <span class="size-label">20px</span>
+                        <span data-i18n-param="fontSample" data-param="20">Can you read at 20px?</span>
+                    </div>
+                    <div class="font-sample" data-size="22" style="font-size:22px;">
+                        <span class="size-label">22px</span>
+                        <span data-i18n-param="fontSample" data-param="22">Can you read at 22px?</span>
+                    </div>
+                    <div class="font-sample" data-size="24" style="font-size:24px;">
+                        <span class="size-label">24px</span>
+                        <span data-i18n-param="fontSample" data-param="24">Can you read at 24px?</span>
+                    </div>
+                    <div class="font-sample" data-size="28" style="font-size:28px;">
+                        <span class="size-label">28px</span>
+                        <span data-i18n-param="fontSample" data-param="28">Can you read at 28px?</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 5: Brightness -->
+            <section class="step" data-step="4">
+                <h2 class="step-title" data-i18n="calStep5Title">💡 Brightness & Glare</h2>
+                <p class="step-desc" data-i18n="calStep5Desc">Find comfortable brightness.</p>
+
+                <div class="brightness-test-area">
+                    <div class="brightness-preview" id="brightnessPreview">
+                        <p data-i18n="brightPreview1">This area simulates selected brightness.</p>
+                        <p data-i18n="brightPreview2">If white areas bother you, reduce brightness.</p>
+                        <div style="margin-top:14px; padding:14px 24px; background:#fff; border-radius:8px; color:#333; font-size:14px; text-align:center;"
+                            data-i18n="brightWhite">Bright White Area</div>
+                    </div>
+                    <div class="brightness-control">
+                        <input type="range" id="brightnessSlider" min="65" max="100" step="1" value="95"
+                            class="slider large">
+                        <div class="brightness-value-display"><span id="brightnessLiveValue">95%</span></div>
+                        <div class="slider-range">
+                            <span data-i18n="darkLabel">Dark (65%)</span>
+                            <span data-i18n="fullBright">Full Brightness (100%)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 6: Features -->
+            <section class="step" data-step="5">
+                <h2 class="step-title" data-i18n="calStep6Title">⚡ Edge Clarity & Features</h2>
+                <p class="step-desc" data-i18n="calStep6Desc">Select best option in each comparison.</p>
+
+                <div class="comparison-tests">
+                    <div class="comparison-block">
+                        <h3 class="comparison-title" data-i18n="edgeTitle">Edge Enhancement</h3>
+                        <div class="comparison-pair">
+                            <div class="comparison-card" data-feature="edgeEnhancement" data-val="false">
+                                <p data-i18n="edgeOff">Normal letters</p>
+                                <span class="card-label" data-i18n="off">Off</span>
+                            </div>
+                            <div class="comparison-card selected" data-feature="edgeEnhancement" data-val="true">
+                                <p style="-webkit-text-stroke: 0.4px rgba(25,25,45,0.6); paint-order: stroke fill;"
+                                    data-i18n="edgeOn">Enhanced edges</p>
+                                <span class="card-label"><span data-i18n="on">On</span> ✓</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-block">
+                        <h3 class="comparison-title" data-i18n="guideTitle">Reading Guide</h3>
+                        <div class="comparison-pair">
+                            <div class="comparison-card selected" data-feature="readingGuide" data-val="false">
+                                <p data-i18n="guideOff">Standard reading</p>
+                                <span class="card-label"><span data-i18n="off">Off</span> ✓</span>
+                            </div>
+                            <div class="comparison-card" data-feature="readingGuide" data-val="true">
+                                <p data-i18n="guideOn">Mouse line tracking</p>
+                                <span class="card-label" data-i18n="on">On</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comparison-block">
+                        <h3 class="comparison-title" data-i18n="chromTitle">Chromatic Correction</h3>
+                        <div class="comparison-pair">
+                            <div class="comparison-card" data-feature="chromaticCorrection" data-val="false">
+                                <p data-i18n="chromOff">Standard colors</p>
+                                <span class="card-label" data-i18n="off">Off</span>
+                            </div>
+                            <div class="comparison-card selected" data-feature="chromaticCorrection" data-val="true">
+                                <p style="-webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;"
+                                    data-i18n="chromOn">Reduced fringing</p>
+                                <span class="card-label"><span data-i18n="on">On</span> ✓</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 7: Results -->
+            <section class="step" data-step="6">
+                <h2 class="step-title" data-i18n="calStep7Title">✅ Calibration Results</h2>
+                <p class="step-desc" data-i18n="calStep7Desc">Your optimal settings. Click Apply.</p>
+
+                <div class="results-grid" id="resultsGrid"></div>
+                <div class="results-actions">
+                    <button class="btn-apply" id="applyBtn" data-i18n="applySettings">🚀 Apply Settings</button>
+                    <button class="btn-retest" id="retestBtn" data-i18n="retest">🔄 Retest</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Navigation -->
+        <nav class="wizard-nav">
+            <button class="btn-back" id="backBtn" disabled data-i18n="back">← Back</button>
+            <button class="btn-next" id="nextBtn" data-i18n="next">Next →</button>
+        </nav>
+    </div>
+
+    <script src="../src/i18n.js"></script>
+    <script src="calibration.js"></script>
+</body>
+
+</html>
