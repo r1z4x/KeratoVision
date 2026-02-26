@@ -43,8 +43,8 @@ BOLD   := \033[1m
 .DEFAULT_GOAL := help
 
 .PHONY: all chrome firefox vscode clean validate version help \
-        bump-patch bump-minor bump-major release-patch release-minor release-major \
-        github-release publish-patch publish-minor publish-major
+        bump-patch bump-minor bump-major release release-patch release-minor release-major \
+        _github-release set-version
 
 all: clean validate chrome firefox vscode
 	@echo ""
@@ -194,37 +194,45 @@ bump-minor:
 bump-major:
 	$(call _bump_version,major)
 
+# Manual version override: make set-version V=1.0.0
+set-version:
+	@if [ -z "$(V)" ]; then \
+		echo "$(RED)  ✗ Usage: make set-version V=x.y.z$(NC)"; exit 1; \
+	fi
+	@OLD_VER=$$(python3 -c "import json; print(json.load(open('$(CHROME_DIR)/manifest.json'))['version'])"); \
+	echo "$(CYAN)🔖 Setting version: $$OLD_VER → $(V)$(NC)"; \
+	for f in $(CHROME_DIR)/manifest.json $(FIREFOX_DIR)/manifest.json $(VSCODE_DIR)/package.json; do \
+		sed -i '' "s/\"version\": \"$$OLD_VER\"/\"version\": \"$(V)\"/" "$$f"; \
+		echo "$(GREEN)  ✓ $$f → v$(V)$(NC)"; \
+	done; \
+	echo "$(GREEN)  ✅ All manifests updated to v$(V)$(NC)"
+
 # ============================================
-#  RELEASE SHORTCUTS (bump + build)
+#  RELEASE (bump + build + GitHub release)
 # ============================================
+
+release: _github-release
 
 release-patch: bump-patch
-	@$(MAKE) all
+	@$(MAKE) _github-release
 
 release-minor: bump-minor
-	@$(MAKE) all
+	@$(MAKE) _github-release
 
 release-major: bump-major
-	@$(MAKE) all
+	@$(MAKE) _github-release
 
-# ============================================
-#  GITHUB RELEASE
-# ============================================
-
-github-release: all
+# Internal target: build all + push GitHub release
+_github-release: all
 	@echo "$(CYAN)🚀 Creating GitHub Release v$(VERSION)...$(NC)"
-	@# Check gh auth
 	@gh auth status >/dev/null 2>&1 || \
 		(echo "$(RED)  ✗ GitHub CLI not authenticated. Run: gh auth login$(NC)" && exit 1)
 	@git add -A
 	@git commit -m "release: v$(VERSION)" || true
-	@# Create/recreate tag
 	@git tag -f -a "v$(VERSION)" -m "KeratoVision v$(VERSION)"
 	@git push origin main --tags --force
 	@echo "$(CYAN)  📦 Uploading release artifacts...$(NC)"
-	@# Delete existing release if present, then create new one
 	@gh release delete "v$(VERSION)" --yes 2>/dev/null || true
-	@# Write release notes to temp file
 	@printf '## 📦 Downloads\n\n' > /tmp/kv-release-notes.md
 	@printf '| Package | File |\n' >> /tmp/kv-release-notes.md
 	@printf '|---------|------|\n' >> /tmp/kv-release-notes.md
@@ -246,16 +254,6 @@ github-release: all
 	@echo "$(GREEN)$(BOLD)✅ Released v$(VERSION) on GitHub!$(NC)"
 	@echo "$(CYAN)  🔗 https://github.com/r1z4x/KeratoVision/releases/tag/v$(VERSION)$(NC)"
 
-# One-step: bump + build + GitHub release
-publish-patch: bump-patch
-	@$(MAKE) github-release
-
-publish-minor: bump-minor
-	@$(MAKE) github-release
-
-publish-major: bump-major
-	@$(MAKE) github-release
-
 # ============================================
 #  HELP
 # ============================================
@@ -266,26 +264,20 @@ help:
 	@echo "========================"
 	@echo ""
 	@echo "  $(BOLD)Build:$(NC)"
-	@echo "  $(CYAN)make all$(NC)            Build all release packages"
-	@echo "  $(CYAN)make chrome$(NC)         Package Chrome extension (.zip)"
-	@echo "  $(CYAN)make firefox$(NC)        Package Firefox extension (.zip)"
-	@echo "  $(CYAN)make vscode$(NC)         Package VS Code theme (.vsix)"
+	@echo "  $(CYAN)make all$(NC)              Build all packages"
+	@echo "  $(CYAN)make chrome$(NC)           Package Chrome extension (.zip)"
+	@echo "  $(CYAN)make firefox$(NC)          Package Firefox extension (.zip)"
+	@echo "  $(CYAN)make vscode$(NC)           Package VS Code theme (.vsix)"
 	@echo ""
-	@echo "  $(BOLD)Version:$(NC)"
-	@echo "  $(CYAN)make bump-patch$(NC)     Increment patch  (1.0.0 → 1.0.1)"
-	@echo "  $(CYAN)make bump-minor$(NC)     Increment minor  (1.0.0 → 1.1.0)"
-	@echo "  $(CYAN)make bump-major$(NC)     Increment major  (1.0.0 → 2.0.0)"
-	@echo "  $(CYAN)make release-patch$(NC)  Bump patch + build all"
-	@echo "  $(CYAN)make release-minor$(NC)  Bump minor + build all"
-	@echo "  $(CYAN)make release-major$(NC)  Bump major + build all"
-	@echo "  $(BOLD)Publish (bump + build + GitHub release):$(NC)"
-	@echo "  $(CYAN)make publish-patch$(NC)   1.0.0 → 1.0.1 + release"
-	@echo "  $(CYAN)make publish-minor$(NC)   1.0.0 → 1.1.0 + release"
-	@echo "  $(CYAN)make publish-major$(NC)   1.0.0 → 2.0.0 + release"
-	@echo "  $(CYAN)make github-release$(NC)  Build + create GitHub release"
-	@echo "  $(CYAN)make version$(NC)         Show current version"
+	@echo "  $(BOLD)Release (build + GitHub):$(NC)"
+	@echo "  $(CYAN)make release$(NC)           Build + publish current version"
+	@echo "  $(CYAN)make release-patch$(NC)    Bump patch + publish"
+	@echo "  $(CYAN)make release-minor$(NC)    Bump minor + publish"
+	@echo "  $(CYAN)make release-major$(NC)    Bump major + publish"
 	@echo ""
 	@echo "  $(BOLD)Utils:$(NC)"
-	@echo "  $(CYAN)make validate$(NC)        Validate all manifest files"
-	@echo "  $(CYAN)make clean$(NC)           Remove build artifacts"
+	@echo "  $(CYAN)make version$(NC)          Show current version"
+	@echo "  $(CYAN)make set-version V=x.y.z$(NC)  Set version manually"
+	@echo "  $(CYAN)make validate$(NC)         Validate all manifest files"
+	@echo "  $(CYAN)make clean$(NC)            Remove build artifacts"
 	@echo ""
