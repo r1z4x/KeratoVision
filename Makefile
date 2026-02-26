@@ -210,19 +210,23 @@ release-major: bump-major all
 
 github-release: all
 	@echo "$(CYAN)🚀 Creating GitHub Release v$(VERSION)...$(NC)"
+	@# Check gh auth
+	@gh auth status >/dev/null 2>&1 || \
+		(echo "$(RED)  ✗ GitHub CLI not authenticated. Run: gh auth login$(NC)" && exit 1)
 	@git add -A
 	@git commit -m "release: v$(VERSION)" || true
-	@git tag -a "v$(VERSION)" -m "KeratoVision v$(VERSION)" 2>/dev/null || \
-		(echo "$(YELLOW)  ⚠ Tag v$(VERSION) already exists, deleting and recreating...$(NC)" && \
-		 git tag -d "v$(VERSION)" && git tag -a "v$(VERSION)" -m "KeratoVision v$(VERSION)")
-	@git push origin main --tags
+	@# Create/recreate tag
+	@git tag -f -a "v$(VERSION)" -m "KeratoVision v$(VERSION)"
+	@git push origin main --tags --force
 	@echo "$(CYAN)  📦 Uploading release artifacts...$(NC)"
+	@# Delete existing release if present, then create new one
+	@gh release delete "v$(VERSION)" --yes 2>/dev/null || true
 	@gh release create "v$(VERSION)" \
 		$(CHROME_ZIP) \
 		$(FIREFOX_ZIP) \
 		$(VSCODE_VSIX) \
 		--title "KeratoVision v$(VERSION)" \
-		--notes "## 📦 Downloads\n\n| Package | File |\n|---------|------|\n| Chrome Extension | \`keratovision-chrome-v$(VERSION).zip\` |\n| Firefox Add-on | \`keratovision-firefox-v$(VERSION).zip\` |\n| VS Code Theme | \`keratovision-theme-$(VERSION).vsix\` |\n\n### Install\n\n**Chrome:** Settings → Extensions → Load unpacked → select extracted zip\n\n**Firefox:** \`about:debugging\` → Load Temporary Add-on → select extracted zip\n\n**VS Code:** \`code --install-extension keratovision-theme-$(VERSION).vsix\`"
+		--notes "## 📦 Downloads$$'\n\n'| Package | File |$$'\n'|---------|------|$$'\n'| Chrome Extension | keratovision-chrome-v$(VERSION).zip |$$'\n'| Firefox Add-on | keratovision-firefox-v$(VERSION).zip |$$'\n'| VS Code Theme | keratovision-theme-$(VERSION).vsix |$$'\n\n'### Install$$'\n\n'**Chrome:** Settings → Extensions → Load unpacked → select extracted zip$$'\n\n'**Firefox:** about:debugging → Load Temporary Add-on → select manifest.json$$'\n\n'**VS Code:** code --install-extension keratovision-theme-$(VERSION).vsix"
 	@echo ""
 	@echo "$(GREEN)$(BOLD)✅ Released v$(VERSION) on GitHub!$(NC)"
 	@echo "$(CYAN)  🔗 https://github.com/r1z4x/KeratoVision/releases/tag/v$(VERSION)$(NC)"
