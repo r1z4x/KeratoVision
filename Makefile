@@ -221,12 +221,24 @@ github-release: all
 	@echo "$(CYAN)  📦 Uploading release artifacts...$(NC)"
 	@# Delete existing release if present, then create new one
 	@gh release delete "v$(VERSION)" --yes 2>/dev/null || true
+	@# Write release notes to temp file
+	@printf '## 📦 Downloads\n\n' > /tmp/kv-release-notes.md
+	@printf '| Package | File |\n' >> /tmp/kv-release-notes.md
+	@printf '|---------|------|\n' >> /tmp/kv-release-notes.md
+	@printf '| Chrome Extension | `keratovision-chrome-v$(VERSION).zip` |\n' >> /tmp/kv-release-notes.md
+	@printf '| Firefox Add-on | `keratovision-firefox-v$(VERSION).zip` |\n' >> /tmp/kv-release-notes.md
+	@printf '| VS Code Theme | `keratovision-theme-$(VERSION).vsix` |\n\n' >> /tmp/kv-release-notes.md
+	@printf '### Install\n\n' >> /tmp/kv-release-notes.md
+	@printf '**Chrome:** Settings → Extensions → Load unpacked → select extracted zip\n\n' >> /tmp/kv-release-notes.md
+	@printf '**Firefox:** `about:debugging` → Load Temporary Add-on → select manifest.json\n\n' >> /tmp/kv-release-notes.md
+	@printf '**VS Code:** `code --install-extension keratovision-theme-$(VERSION).vsix`\n' >> /tmp/kv-release-notes.md
 	@gh release create "v$(VERSION)" \
 		$(CHROME_ZIP) \
 		$(FIREFOX_ZIP) \
 		$(VSCODE_VSIX) \
 		--title "KeratoVision v$(VERSION)" \
-		--notes "## 📦 Downloads$$'\n\n'| Package | File |$$'\n'|---------|------|$$'\n'| Chrome Extension | keratovision-chrome-v$(VERSION).zip |$$'\n'| Firefox Add-on | keratovision-firefox-v$(VERSION).zip |$$'\n'| VS Code Theme | keratovision-theme-$(VERSION).vsix |$$'\n\n'### Install$$'\n\n'**Chrome:** Settings → Extensions → Load unpacked → select extracted zip$$'\n\n'**Firefox:** about:debugging → Load Temporary Add-on → select manifest.json$$'\n\n'**VS Code:** code --install-extension keratovision-theme-$(VERSION).vsix"
+		--notes-file /tmp/kv-release-notes.md
+	@rm -f /tmp/kv-release-notes.md
 	@echo ""
 	@echo "$(GREEN)$(BOLD)✅ Released v$(VERSION) on GitHub!$(NC)"
 	@echo "$(CYAN)  🔗 https://github.com/r1z4x/KeratoVision/releases/tag/v$(VERSION)$(NC)"
