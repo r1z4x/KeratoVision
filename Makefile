@@ -91,16 +91,11 @@ vscode: $(VSCODE_VSIX)
 
 $(VSCODE_VSIX): $(DIST_DIR)
 	@echo "$(CYAN)🎨 Packaging VS Code theme...$(NC)"
-	@if command -v npx >/dev/null 2>&1; then \
-		cd $(VSCODE_DIR) && echo 'y' | npx -y @vscode/vsce package -o ../$(VSCODE_VSIX) --no-dependencies --allow-missing-repository 2>/dev/null || \
-		(echo "$(YELLOW)  ⚠ vsce failed, creating manual .vsix...$(NC)" && \
-		 cd ../$(VSCODE_DIR) && zip -r -q ../$(VSCODE_VSIX) . \
-			-x ".*" -x "node_modules/*" -x "__MACOSX/*" -x "*.DS_Store" -x "src/*" -x "tsconfig.json"); \
-	else \
-		echo "$(YELLOW)  ⚠ npx not found, creating manual .vsix zip...$(NC)"; \
-		cd $(VSCODE_DIR) && zip -r -q ../$(VSCODE_VSIX) . \
-			-x ".*" -x "node_modules/*" -x "__MACOSX/*" -x "*.DS_Store" -x "src/*" -x "tsconfig.json"; \
-	fi
+	@cd $(VSCODE_DIR) && npm install --silent 2>/dev/null && npx tsc -p ./ 2>/dev/null
+	@cd $(VSCODE_DIR) && npx -y @vscode/vsce package -o ../$(VSCODE_VSIX) --no-dependencies --allow-missing-repository || \
+		(echo "$(YELLOW)  ⚠ vsce failed, falling back to manual zip$(NC)" && \
+		 cd ../$(VSCODE_DIR) && zip -r -q ../$(VSCODE_VSIX) out/ themes/ package.json README.md LICENSE icon.png \
+			-x "*.DS_Store")
 	@echo "$(GREEN)  ✓ $(VSCODE_VSIX) ($(shell du -h $(VSCODE_VSIX) 2>/dev/null | cut -f1 || echo 'done'))$(NC)"
 
 # ============================================
