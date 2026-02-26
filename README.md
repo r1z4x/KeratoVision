@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="logo.svg" alt="KeratoVision Logo" width="160" />
+
 # KeratoVision
 
 **Adaptive Rendering Engine for Screen Readability**
@@ -26,13 +28,11 @@ KeratoVision is a browser extension and editor theme that adapts screen content 
 
 ### Why I Built This
 
-I have keratoconus. This isn't a side project born from curiosity - it's something I **needed** to build.
+I have keratoconus. I spend most of my day in front of a screen, and honestly, it sucks. Text ghosts, whites burn my eyes, letters blur into each other. I went through every dark mode, every accessibility extension, every "eye-friendly" font out there. None of them solved my actual problem because none of them were built for it.
 
-Every day I sit in front of a screen, and every day the text ghosts, the whites burn, and the letters blur into each other. I tried every dark mode, every accessibility tool, every font - nothing was designed for *this* specific problem. So I built it myself.
+So I built my own thing.
 
-And here's the thing: **this isn't rare.** Keratoconus affects roughly 1 in 2,000 people, and astigmatism affects nearly **30% of the world's population**. That's billions of people squinting at screens that were never designed for their eyes. I genuinely believe KeratoVision can make their daily screen time a little less painful.
-
-If you've ever rubbed your eyes after 20 minutes of reading, if bright screens give you headaches, if you see double edges on every letter - this is for you.
+Keratoconus affects about 1 in 2,000 people. Astigmatism affects roughly 30% of the world population. Screens are not designed with any of us in mind. KeratoVision is my attempt to fix that — at least for the time I spend reading and coding.
 
 ### Features
 
@@ -79,13 +79,11 @@ KeratoVision, **keratokonus** ve **astigmatizm** hastalarına yönelik ekran iç
 
 ### Neden Yaptım?
 
-Keratokonusum var. Bu merakla başlanan bir yan proje değil - **yapmak zorunda hissettiğim** bir şey.
+Keratokonusum var. Günümün büyük kısmını ekran başında geçiriyorum ve düpedüz zor. Metinler gölgeleniyor, beyaz arka planlar gözlerimi yakıyor, harfler birbirine giriyor. Piyasadaki her karanlık modu, her erişilebilirlik eklentisini, her "göz dostu" fontu denedim. Hiçbiri benim sorunumu çözmedi çünkü hiçbiri bunun için yapılmamıştı.
 
-Her gün ekran başında oturuyorum ve her gün metinler bulanıklaşıyor, beyazlar gözlerimi yakıyor, harfler birbirine karışıyor. Her karanlık modu, her erişilebilirlik aracını, her fontu denedim - hiçbiri *tam olarak bu* sorun için tasarlanmamıştı. Ben de kendi çözümümü yazdım.
+O yüzden kendim yazdım.
 
-Ve şunu bilmenizi isterim: **bu nadir bir durum değil.** Keratokonus her 2.000 kişiden 1'ini, astigmatizm ise dünya nüfusunun **yaklaşık %30'unu** etkiliyor. Milyarlarca insan gözlerine uygun olmayan ekranlara bakıyor. KeratoVision'ın onların günlük ekran süresini biraz daha katlanılabilir hale getirebileceğine yürekten inanıyorum.
-
-20 dakika okuduktan sonra gözlerinizi ovuşturuyorsanız, parlak ekranlar baş ağrısı yapıyorsa, her harfin çift kenarını görüyorsanız - bu sizin için.
+Keratokonus yaklaşık her 2.000 kişiden 1'ini etkiliyor. Astigmatizm dünya nüfusunun %30'unda var. Ekranlar hiçbirimiz düşünülerek tasarlanmadı. KeratoVision bunu düzeltme çabam — en azından okuma ve kod yazma sürem için.
 
 ### Özellikler
 
@@ -115,13 +113,11 @@ KeratoVision - расширение для браузера и тема для �
 
 ### Почему я это создал?
 
-У меня кератоконус. Это не побочный проект из любопытства - я **был вынужден** это сделать.
+У меня кератоконус. Большую часть дня я провожу перед экраном, и это реально тяжело. Текст двоится, белый фон обжигает глаза, буквы сливаются. Я перепробовал все тёмные режимы, все расширения для доступности, все "щадящие" шрифты. Ничего не помогло, потому что ничего из этого не было сделано под мою проблему.
 
-Каждый день я сижу перед экраном, и каждый день текст двоится, белый цвет обжигает глаза, буквы сливаются. Я перепробовал все тёмные режимы, все инструменты доступности - ничто не было создано именно для *этой* проблемы. Поэтому я написал своё.
+Поэтому я написал своё.
 
-**Это не редкость.** Кератоконус затрагивает примерно 1 из 2 000 человек, а астигматизм - **около 30% населения Земли**. Миллиарды людей вглядываются в экраны, не предназначенные для их глаз. Я искренне верю, что KeratoVision может сделать их ежедневную работу чуть менее болезненной.
-
-Если вы трёте глаза через 20 минут чтения, если яркие экраны вызывают головную боль, если каждая буква двоится - это для вас.
+Кератоконус затрагивает примерно 1 из 2 000 человек. Астигматизм — около 30% населения планеты. Экраны не проектировались с учётом наших глаз. KeratoVision — моя попытка это исправить, хотя бы для чтения и написания кода.
 
 ### Возможности
 
@@ -151,13 +147,11 @@ KeratoVision es una extensión de navegador y tema de editor que adapta el conte
 
 ### ¿Por qué lo construí?
 
-Tengo queratocono. Este no es un proyecto paralelo por curiosidad - es algo que **necesitaba** construir.
+Tengo queratocono. Paso la mayor parte del día frente a una pantalla, y la verdad, es difícil. El texto se duplica, los blancos queman los ojos, las letras se difuminan. Probé todos los modos oscuros, todas las extensiones de accesibilidad, todas las fuentes "amigables con los ojos". Nada resolvió mi problema porque nada estaba hecho para esto.
 
-Cada día me siento frente a una pantalla, y cada día el texto se duplica, los blancos queman y las letras se difuminan. Probé cada modo oscuro, cada herramienta de accesibilidad - nada estaba diseñado para *este* problema específico. Así que lo construí yo mismo.
+Así que lo hice yo.
 
-**Esto no es raro.** El queratocono afecta a aproximadamente 1 de cada 2.000 personas, y el astigmatismo afecta a casi **el 30% de la población mundial**. Miles de millones de personas fuerzan la vista en pantallas que nunca fueron diseñadas para sus ojos. Creo sinceramente que KeratoVision puede hacer que su tiempo frente a la pantalla sea un poco menos doloroso.
-
-Si te frotas los ojos después de 20 minutos leyendo, si las pantallas brillantes te dan dolor de cabeza, si ves bordes dobles en cada letra - esto es para ti.
+El queratocono afecta a aproximadamente 1 de cada 2.000 personas. El astigmatismo afecta a cerca del 30% de la población mundial. Las pantallas no están diseñadas pensando en nosotros. KeratoVision es mi intento de arreglar eso — al menos para el tiempo que paso leyendo y programando.
 
 ### Características
 
@@ -180,8 +174,6 @@ Si te frotas los ojos después de 20 minutos leyendo, si las pantallas brillante
 ---
 
 <div align="center">
-
-**Built with ❤️ because I needed it, and I know you might too.**
 
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?logo=buymeacoffee&logoColor=black&style=for-the-badge)](https://buymeacoffee.com/r1z4x)
 
