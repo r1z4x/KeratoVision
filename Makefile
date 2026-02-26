@@ -92,7 +92,8 @@ vscode: $(VSCODE_VSIX)
 $(VSCODE_VSIX): $(DIST_DIR)
 	@echo "$(CYAN)🎨 Packaging VS Code theme...$(NC)"
 	@cd $(VSCODE_DIR) && npm install --silent 2>/dev/null && npx tsc -p ./ 2>/dev/null
-	@cd $(VSCODE_DIR) && npx -y @vscode/vsce package -o ../$(VSCODE_VSIX) --no-dependencies --allow-missing-repository || \
+	@cd $(VSCODE_DIR) && npx -y @vscode/vsce package --no-dependencies --allow-missing-repository && \
+		mv keratovision-theme-$(VERSION).vsix ../$(VSCODE_VSIX) || \
 		(echo "$(YELLOW)  ⚠ vsce failed, falling back to manual zip$(NC)" && \
 		 cd ../$(VSCODE_DIR) && zip -r -q ../$(VSCODE_VSIX) out/ themes/ package.json README.md LICENSE icon.png \
 			-x "*.DS_Store")

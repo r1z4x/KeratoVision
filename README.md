@@ -10,6 +10,7 @@
 [![Firefox](https://img.shields.io/badge/Firefox-Add--on-FF7139?logo=firefox&logoColor=white)](firefox/)
 [![VS Code](https://img.shields.io/badge/VS_Code-Theme-007ACC?logo=visualstudiocode&logoColor=white)](vscode-theme/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/r1z4x)
 
 [English](#english) · [Türkçe](#türkçe) · [Русский](#русский) · [Español](#español)
 
@@ -180,7 +181,9 @@ Si te frotas los ojos después de 20 minutos leyendo, si las pantallas brillante
 
 <div align="center">
 
-**Built with ❤️ because I needed it - and I know you might too.**
+**Built with ❤️ because I needed it, and I know you might too.**
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?logo=buymeacoffee&logoColor=black&style=for-the-badge)](https://buymeacoffee.com/r1z4x)
 
 MIT License © 2025 KeratoVision
 
